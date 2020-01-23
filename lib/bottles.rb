@@ -1,30 +1,22 @@
 class Bottles
-  def verse(n)
-    first_verse = "#{n} "
-    first_verse = "No more " if n == 0
-    first_verse += "bottles " unless n == 1
-    first_verse += "bottle " if n == 1
-    first_verse += "of milk on the wall, "
-    first_verse += "#{n} " unless n == 0
-    first_verse += "no more " if n == 0
-    first_verse += "bottles " unless n == 1
-    first_verse += "bottle " if n == 1
-    first_verse += "of milk.\n"
-    first_verse += "Take " unless n == 0
-    first_verse += "one " unless n == 0 || n == 1
-    first_verse += "it " if n == 1
-    first_verse += "down and pass it around, " unless n == 0
-    first_verse += "Go to the store and buy some more, " if n == 0
-    first_verse += "#{n-1} " unless n-1 <= 0
-    first_verse += "no more " if n == 1
-    first_verse += "99 " if n == 0
-    first_verse += "bottles " unless n == 2
-    first_verse += "bottle " if n == 2
-    first_verse += "of milk on the wall.\n"
+  def verse(num)
+    if num == 2
+      "2 bottles of milk on the wall, 2 bottles of milk.\n" + 
+      "Take one down and pass it around, 1 bottle of milk on the wall.\n"
+    elsif num == 1
+      "1 bottle of milk on the wall, 1 bottle of milk.\n" + 
+      "Take it down and pass it around, no more bottles of milk on the wall.\n"
+    elsif num == 0
+      "No more bottles of milk on the wall, no more bottles of milk.\n" + 
+      "Go to the store and buy some more, 99 bottles of milk on the wall.\n"
+    else
+      "#{num} bottles of milk on the wall, #{num} bottles of milk.\n" +
+      "Take one down and pass it around, #{num-1} bottles of milk on the wall.\n"
+    end
   end
 
-  def verses(high, low)
-    (low..high).map { |n| verse(n) }.reverse().join("\n")
+  def verses(upper, lower)
+    (lower..upper).map { |n| verse(n) }.reverse().join("\n")
   end
 
   def song
