@@ -17,7 +17,7 @@ class Bottles
   end
 
   def verses(upper, lower)
-    (lower..upper).map { |n| verse(n) }.reverse().join("\n")
+    upper.downto(lower).map { |n| verse(n) }.join("\n")
   end
 
   def song
