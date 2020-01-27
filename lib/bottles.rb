@@ -1,5 +1,4 @@
 class Bottles
-    
   def song
     verses(99, 0)
   end
@@ -8,29 +7,77 @@ class Bottles
     upper.downto(lower).map { |n| verse(n) }.join("\n")
   end
   
-  def verse(num)
-    case num
-    when 0
-      "No more bottles of milk on the wall, " + 
-      "no more bottles of milk.\n" + 
-      "Go to the store and buy some more, " + 
-      "99 bottles of milk on the wall.\n"
-    when 1
-      "1 bottle of milk on the wall, " + 
-      "1 bottle of milk.\n" + 
-      "Take it down and pass it around, " + 
-      "no more bottles of milk on the wall.\n"
-    when 2
-      "#{num} bottles of milk on the wall, " + 
-      "#{num} bottles of milk.\n" + 
-      "Take one down and pass it around, " +
-      "#{num-1} bottle of milk on the wall.\n"
+  def verse(number)
+    "#{quantity(number).capitalize} #{container(number)} of milk on the wall, " + 
+    "#{quantity(number)} #{container(number)} of milk.\n" +
+    "#{action(number)}, " + 
+    "#{quantity(successor(number))} #{container(successor(number))} of milk on the wall.\n"
+  end
+
+  def quantity(number)
+    BottleNumber.new(number).quantity
+  end
+
+  def container(number)
+    BottleNumber.new(number).container
+  end
+
+  def action(number)
+    BottleNumber.new(number).action
+  end
+
+  def pronoun(number)
+    BottleNumber.new(number).pronoun
+  end
+
+  def successor(number)
+    BottleNumber.new(number).successor
+  end
+end
+
+class BottleNumber
+  attr_reader :number
+  def initialize(number)
+    @number = number
+  end
+
+  def quantity
+    if number == 0
+      "no more"
     else
-      "#{num} bottles of milk on the wall, " + 
-      "#{num} bottles of milk.\n" +
-      "Take one down and pass it around, " + 
-      "#{num-1} bottles of milk on the wall.\n"
+      number.to_s
     end
   end
 
+  def container
+    if number == 1
+      "bottle"
+    else
+      "bottles"
+    end
+  end
+
+  def action
+    if number == 0
+      "Go to the store and buy some more"
+    else
+      "Take #{pronoun} down and pass it around"
+    end
+  end
+
+  def pronoun
+    if number == 1
+      "it"
+    else
+      "one"
+    end
+  end
+
+  def successor
+    if number == 0
+      99
+    else
+      number - 1
+    end
+  end
 end
